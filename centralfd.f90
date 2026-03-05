@@ -81,11 +81,14 @@ module centralfd
     real(8), intent(out) :: du(:)
     real(8), intent(in) :: delta, r
     real(8) :: hs, hd
-    do idx = 2, size(u)-1
-      du(idx) = (u(idx+1) - u(idx-1))/(2.d0*delta)
+    do idx = 2, size(u)
+      if (idx .eq. size(u)) then
+        du(idx) = (u(1) - u(idx-1))/(2.d0*delta)
+      else
+        du(idx) = (u(idx+1) - u(idx-1))/(2.d0*delta)
+      end if
     end do
     du(1) = (u(2)-u(size(u)))/(2.d0*delta)
-    du(size(u)) = du(1)
     du = du/r
   end subroutine get_dphi
 end module centralfd

@@ -103,10 +103,12 @@ module ncinput
 
     ! compute derived quantities
     phi_= 0.d0
-    do i = 1, dim_phi-4
+    phi(1) = 0.d0
+    do i = 2, dim_phi
       phi(i) = phi_ + dphi
       phi_ = phi(i)
     end do
+
   end subroutine readgeom
 ! :::::::::: :::::::::: :::::::::: :::::::::: ::::::::::: :::::::::: :::::::::: :::::::::: ::::::::::!
   subroutine readflow(file_name)
@@ -130,16 +132,16 @@ module ncinput
 
     ! .......... .......... Get arrays .......... .......... !
     call check(nf90_inq_varid(ncid, 'temp', tid))
-    call check(nf90_get_var(ncid, tid, t_, start = [4,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, tid, t_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_inq_varid(ncid, 'uz', uzid))
-    call check(nf90_get_var(ncid, tid, uz_, start = [4,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, tid, uz_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_inq_varid(ncid, 'ur', urid))
-    call check(nf90_get_var(ncid, tid, ur_, start = [4,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, tid, ur_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_inq_varid(ncid, 'uphi', uphiid))
-    call check(nf90_get_var(ncid, tid, uphi_, start = [4,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, tid, uphi_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_close(ncid))
     ! .......... .......... Reshape .......... .......... !
