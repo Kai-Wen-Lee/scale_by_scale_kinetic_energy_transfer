@@ -8,23 +8,23 @@ module interpolate
   subroutine interp_to_pmesh()
     implicit none
     integer :: i, j, k
-    allocate(ur_p(dim_phi, dim_r, mpi_dim_z))
+    allocate(ur_p(dim_phi, dim_r, dim_z))
     !allocate(uphi_p(mpi_dim_r, mpi_dim_phi, mpi_dim_z))
-    allocate(uz_p(dim_phi, dim_r, mpi_dim_z))
+    allocate(uz_p(dim_phi, dim_r, dim_z))
     ! interp for z
     do i = 1, dim_r
       do j = 1, dim_phi
-        call oneD_cubic_interp(z_uz(mpi_zidx_sta:mpi_zidx_end),&
-        uz(j,i,mpi_zidx_sta:mpi_zidx_end),&
-        z_p(mpi_zidx_sta:mpi_zidx_end),&
-        uz_p(j,i,:),mpi_dim_z)
+        call oneD_cubic_interp(z_uz(:),&
+        uz(j,i,:),&
+        z_p(:),&
+        uz_p(j,i,:),dim_z)
         ! oneD_cubic_interp(inputx, inputval, targetx, len(x))
       end do
     end do
 
     !interp for ur
     do j = 1, dim_phi
-      do k = 1, mpi_dim_z
+      do k = 1, dim_z
         call oneD_cubic_interp(r_ur(:),&
         ur(j,:,k),&
         r_p(:),&

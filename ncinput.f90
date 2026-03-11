@@ -135,13 +135,13 @@ module ncinput
     call check(nf90_get_var(ncid, tid, t_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_inq_varid(ncid, 'uz', uzid))
-    call check(nf90_get_var(ncid, tid, uz_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, uzid, uz_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_inq_varid(ncid, 'ur', urid))
-    call check(nf90_get_var(ncid, tid, ur_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, urid, ur_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_inq_varid(ncid, 'uphi', uphiid))
-    call check(nf90_get_var(ncid, tid, uphi_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
+    call check(nf90_get_var(ncid, uphiid, uphi_, start = [3,2,2], count = [dim_phi, dim_r, dim_z]))
 
     call check(nf90_close(ncid))
     ! .......... .......... Reshape .......... .......... !
